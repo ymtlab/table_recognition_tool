@@ -21,6 +21,11 @@ class Poppler():
         return Path(output_path.stem + '.png')
 
     def subprocess_run(self, cmd):
-        return_value = subprocess.run(cmd, stdout=subprocess.PIPE)
-        r = return_value.stdout.decode('cp932')
-        return r
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = subprocess.SW_HIDE
+        
+        returncode = subprocess.Popen(cmd, startupinfo=startupinfo)
+        returncode.wait()
+        
+        return returncode

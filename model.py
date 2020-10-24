@@ -8,6 +8,17 @@ class Model(QtCore.QAbstractItemModel):
         self.__root__ = root
         self.__columns__ = columns
 
+    def all_update(self):
+        def recursion(item):
+            r = item.row()
+            for c in range(self.columnCount()):
+                index = self.createIndex(r, c, item)
+                self.dataChanged.emit(index, index)
+            for child in item.children():
+                recursion(child)
+        for child in self.__root__.children():
+            recursion(child)
+
     def columnCount(self, parent=QModelIndex()):
         return self.__columns__.count()
 

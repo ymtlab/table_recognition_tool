@@ -35,7 +35,7 @@ class ImageView(QtWidgets.QWidget):
             tableview_item = None
         else:
             tableview_items = mainwindow.tableview_selected_items()
-            if tableview_items is None:
+            if len(tableview_items) == 0:
                 tableview_item = None
             else:
                 tableview_item = tableview_items[0]
@@ -62,7 +62,7 @@ class ImageView(QtWidgets.QWidget):
             return
         
         tableview_items = mainwindow.tableview_selected_items()
-        if tableview_items is None:
+        if len(tableview_items) == 0:
             return
         else:
             tableview_item = tableview_items[0]
